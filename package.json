@@ -1,0 +1,16 @@
+{
+  "name": "gen-e",
+  "version": "0.2.0",
+  "private": true,
+  "description": "GEN-E: turns car and construction waste into urban public items (gyms, play domes, shade, steps, bridges). Prototype.",
+  "type": "module",
+  "scripts": {
+    "data": "node scripts/generate-parts.mjs",
+    "build": "node build/build.mjs",
+    "test": "node --test test/*.test.mjs",
+    "check": "npm test && npm run build"
+  },
+  "engines": {
+    "node": ">=18"
+  }
+}

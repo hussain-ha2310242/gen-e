@@ -1,0 +1,64 @@
+/* Home: open layout with no boxed cards. Hero, problem stats, and the system diagram. */
+.home-wrap{max-width:1120px;margin:0 auto;padding-block:80px 24px;padding-inline:20px}
+.hero{padding-bottom:30px}
+.hero-copy{display:grid;gap:6px;justify-items:start}
+.hero h1{font-size:clamp(56px,9vw,96px);line-height:.9;letter-spacing:-3px;margin:8px 0 2px;font-weight:700}
+.hero h1 span{color:var(--red);text-shadow:0 0 30px rgba(255,59,79,.5)}
+.tagline{font-size:20px;margin:0}
+.sub{color:var(--mute);font-size:14.5px;max-width:540px;line-height:1.55;margin:0}
+.hero .cta{margin-top:16px}
+
+.problem,.flow{padding-block:30px;border-top:1px solid var(--line)}
+.problem h2,.flow h2{margin:10px 0 0;font-size:clamp(22px,3vw,30px);letter-spacing:-.6px;line-height:1.15;font-weight:600;text-wrap:balance}
+
+.stats{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));margin-top:22px}
+.stats figure{margin:0;padding:4px 20px;display:grid;gap:8px;align-content:start;border-left:1px solid var(--line)}
+.stats figure:first-child{border-left:0;padding-left:0}
+.stats .ico{width:22px;height:22px;margin-bottom:6px;fill:none;stroke:var(--red);stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round}
+.stats b{font:700 34px/1 var(--mono);letter-spacing:-1px}
+.stats b em{font-style:normal;color:var(--red);font-size:15px;margin-left:4px;letter-spacing:0}
+.stats p{margin:0;font-size:13.5px;line-height:1.4;color:var(--ink);opacity:.85}
+.stats small{font:400 10px/1.3 var(--mono);color:var(--dim);letter-spacing:.4px}
+@media (max-width:800px){
+  .hero{align-items:flex-start}
+  .stats{grid-template-columns:1fr 1fr}
+  .stats figure{border-left:0;padding:16px 0}
+  .stats figure:nth-child(even){border-left:1px solid var(--line);padding-left:16px}
+  .stats figure:nth-child(n+3){border-top:1px solid var(--line)}
+}
+
+/* the system diagram: scrolls sideways inside its own box on narrow screens */
+.flow-scroll{overflow-x:auto;margin-top:18px;padding-bottom:6px}
+.flow-svg{display:block;width:100%;height:auto;min-width:780px}
+.flow-svg text{text-anchor:middle}
+.flow-svg .cols text{font:500 10px var(--mono);letter-spacing:2.2px;fill:var(--dim)}
+.flow-svg .t{font:600 14px "Space Grotesk",system-ui,sans-serif;fill:var(--ink)}
+.flow-svg .s{font:400 10.5px var(--mono);fill:var(--mute)}
+.flow-svg .route{font:400 10px var(--mono);fill:var(--dim);letter-spacing:.5px}
+.flow-svg .link{fill:none;stroke:rgba(238,240,244,.22);stroke-width:1.2;stroke-dasharray:3 6;animation:march 1.6s linear infinite}
+.flow-svg .loop{fill:none;stroke:rgba(200,16,46,.55);stroke-width:1.2;stroke-dasharray:3 6;animation:march 1.6s linear infinite}
+.flow-svg .bus{fill:none;stroke:rgba(200,16,46,.75);stroke-width:1.4}
+@keyframes march{to{stroke-dashoffset:-9}}
+.flow-svg .dot{fill:var(--glow);filter:url(#glow)}
+.flow-svg .ring{fill:#0b0c11;stroke:rgba(238,240,244,.3);stroke-width:1.2}
+.flow-svg .hub{fill:#110a0d;stroke:var(--glow);stroke-width:1.3}
+.flow-svg .hub.big{stroke-width:1.6}
+.flow-svg .orbit{fill:none;stroke:rgba(255,59,79,.55);stroke-width:1;stroke-dasharray:2 5;transform-box:fill-box;transform-origin:center;animation:spin 14s linear infinite}
+@keyframes spin{to{transform:rotate(360deg)}}
+.flow-svg .chip{fill:#0b0c11;stroke:var(--red);stroke-width:1.4}
+.flow-svg .pin{stroke:var(--red);stroke-width:1.4;stroke-linecap:round}
+.flow-svg .ai{font:700 11px var(--mono);letter-spacing:1px;fill:var(--ink);transform-box:fill-box}
+.flow-svg .agent .chipgfx{animation:glowchip 3.2s ease-in-out infinite}
+@keyframes glowchip{0%,100%{opacity:.75}50%{opacity:1}}
+.flow-svg .badge circle{fill:#0b0c11;stroke:var(--red);stroke-width:1}
+.flow-svg .badge use{fill:none;stroke:var(--ink);stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round}
+.flow-svg .ic{fill:none;stroke:var(--ink);stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round}
+.flow-svg .ic.hot{stroke:var(--glow)}
+.flow-svg .stake .ic{animation:breathe 3.6s ease-in-out infinite}
+@keyframes breathe{0%,100%{opacity:.55}50%{opacity:1}}
+@media (prefers-reduced-motion:reduce){.flow-svg *{animation:none!important}}
+
+.scroll-hint{display:none;margin:8px 0 0;font:400 10px var(--mono);color:var(--dim);letter-spacing:.4px}
+@media (max-width:800px){.scroll-hint{display:block}}
+.flow-foot{margin:16px 0 0;color:var(--mute);font-size:13.5px;line-height:1.55;max-width:660px}
+.home-foot{font:400 10px/1.5 var(--mono);color:var(--dim);padding-top:22px;border-top:1px solid var(--line)}

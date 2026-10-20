@@ -1,0 +1,115 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>GEN-E · WALL-E for the city</title>
+<meta name="description" content="GEN-E turns car and construction waste in Qatar into urban public space.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+<!--CSS:base,home-->
+</head>
+<body>
+<canvas class="stars" id="stars" aria-hidden="true"></canvas>
+<!--SPRITE-->
+
+<header class="topbar">
+  <a class="brand" href="index.html">GEN-E</a>
+  <nav class="views" aria-label="Pages">
+    <a href="index.html" class="on" aria-current="page">Home</a>
+    <a href="generate.html">Generate</a>
+    <a href="database.html">Database</a>
+  </nav>
+</header>
+
+<main class="home-wrap">
+  <section class="hero">
+    <div class="hero-copy">
+      <div class="label">Red Reuse Network · Qatar</div>
+      <h1>GEN-E<span>.</span></h1>
+      <p class="tagline">WALL-E for the city.</p>
+      <p class="sub">Car and construction waste, scanned by AI, checked for safety and rebuilt as gyms, play domes, shade, steps and bridges.</p>
+      <div class="cta">
+        <a class="btn" href="generate.html">Generate</a>
+        <a class="btn ghost" href="database.html">Database</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="problem" aria-labelledby="problem-title">
+    <div class="label">The problem</div>
+    <h2 id="problem-title">Most of Qatar's waste is buried, not reused</h2>
+    <div class="stats">
+      <figure>
+        <svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-city"/></svg>
+        <b>4.5<em>M t</em></b>
+        <p>construction &amp; demolition waste produced</p>
+        <small>Trade.gov</small>
+      </figure>
+      <figure>
+        <svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-bin"/></svg>
+        <b>1.3<em>M t</em></b>
+        <p>household waste, all sent to landfill</p>
+        <small>Trade.gov</small>
+      </figure>
+      <figure>
+        <svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-recycle"/></svg>
+        <b>11.5<em>%</em></b>
+        <p>of 3.8M t construction waste treated (2016)</p>
+        <small>QNDS · Qatar University</small>
+      </figure>
+      <figure>
+        <svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-car"/></svg>
+        <b>7,144</b>
+        <p>abandoned vehicles removed in 2025</p>
+        <small>Gulf Times</small>
+      </figure>
+    </div>
+  </section>
+
+  <section class="flow" aria-labelledby="flow-title">
+    <div class="label">How it works</div>
+    <h2 id="flow-title">From a scrap pile to a public place</h2>
+    <div class="flow-scroll">
+      <!--DIAGRAM-->
+    </div>
+    <p class="scroll-hint">Swipe the diagram sideways to see every stage →</p>
+    <p class="flow-foot">Parts come in from the left. AI agents scan, check safety and design. The materials database remembers each part. Approved items go out to makers and the city.</p>
+  </section>
+
+  <footer class="home-foot">
+    <span>Sources: Trade.gov Qatar waste brief · Qatar University (QNDS) · Gulf Times 2025/2026. GEN-E impact figures are prototype estimates.</span>
+  </footer>
+</main>
+
+<script>
+// quiet starfield backdrop
+(function () {
+  const c = document.getElementById('stars'), x = c.getContext('2d');
+  let w, h, stars = [];
+  function size() {
+    w = c.width = innerWidth * devicePixelRatio;
+    h = c.height = innerHeight * devicePixelRatio;
+    stars = Array.from({ length: 140 }, () => ({
+      x: Math.random() * w, y: Math.random() * h,
+      r: (Math.random() * 1.2 + 0.2) * devicePixelRatio,
+      p: Math.random() * Math.PI * 2, s: 0.4 + Math.random() * 1.2
+    }));
+  }
+  function draw(t) {
+    x.clearRect(0, 0, w, h);
+    for (const s of stars) {
+      x.globalAlpha = 0.25 + 0.35 * (0.5 + 0.5 * Math.sin(t * 0.001 * s.s + s.p));
+      x.fillStyle = '#eef0f4';
+      x.beginPath(); x.arc(s.x, s.y, s.r, 0, Math.PI * 2); x.fill();
+    }
+    x.globalAlpha = 1;
+    requestAnimationFrame(draw);
+  }
+  size();
+  addEventListener('resize', size);
+  requestAnimationFrame(draw);
+})();
+</script>
+</body>
+</html>

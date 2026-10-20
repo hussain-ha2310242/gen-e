@@ -1,0 +1,81 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>GEN-E · Materials database</title>
+<meta name="description" content="A gallery of salvaged parts: 3D model, size, colour, safety status and stock, filterable and paged.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+<!--CSS:base,database-->
+</head>
+<body class="solid-top">
+<!--SPRITE-->
+
+<header class="topbar">
+  <a class="brand" href="index.html">GEN-E</a>
+  <nav class="views" aria-label="Pages">
+    <a href="index.html">Home</a>
+    <a href="generate.html">Generate</a>
+    <a href="database.html" class="on" aria-current="page">Database</a>
+  </nav>
+</header>
+
+<main class="db">
+  <div class="label">Materials database</div>
+  <h1>Every part, with its size, colour and safety</h1>
+  <p class="lede">Companies and businesses contribute salvaged parts. Each one is recorded with its type, size, colour, condition and safety check. Generators draw only on stock that is available and cleared.</p>
+  <p class="lede" style="margin-top:-6px"><b>Demo data.</b> The records are synthetic, generated from the same part catalogue by <code>scripts/generate-parts.mjs</code>. Contributor names are placeholders.</p>
+
+  <section class="kpis" id="kpis" aria-label="Totals"></section>
+
+  <div class="toolbar">
+    <input type="search" id="q" placeholder="Search id, type, tag, colour or zone" aria-label="Search parts">
+    <select id="type" aria-label="Filter by type"></select>
+    <select id="status" aria-label="Filter by status">
+      <option value="">Any status</option>
+      <option value="available">Available</option>
+      <option value="reserved">Reserved</option>
+      <option value="used">Used</option>
+    </select>
+    <select id="safety" aria-label="Filter by safety">
+      <option value="">Any safety</option>
+      <option value="cleared">Cleared</option>
+      <option value="review">In review</option>
+      <option value="rejected">Rejected</option>
+    </select>
+    <select id="sort" aria-label="Sort">
+      <option value="added">Newest first</option>
+      <option value="kg">Heaviest first</option>
+      <option value="co2">Most CO₂e avoided</option>
+      <option value="type">By type</option>
+    </select>
+  </div>
+
+  <p class="count" id="count" aria-live="polite"></p>
+  <section class="gallery" id="grid" aria-label="Parts"></section>
+  <nav class="pager" id="pager" aria-label="Pages of parts"></nav>
+
+  <details class="schema">
+    <summary>Data model</summary>
+    <pre>part_types       type, name, plural, material, planning_kg, co2_per_kg
+contributors     id, name, kind, zone
+parts            id, type, contributor_id, zone, condition, safety, status, kg, added_on
+part_dimensions  part_id, length_mm, width_mm, height_mm
+part_colours     part_id, hex, name, share
+part_tags        part_id, tag
+part_assets      part_id, kind (photo | mesh | thumb), uri
+safety_checks    part_id, check_name, result, checked_by, checked_at
+available_stock  view: cleared and available parts per type, with kg and CO₂e
+part_impact      view: CO₂e avoidable per part
+
+db/schema.sql defines these tables. db/seed.sql loads this dataset.</pre>
+  </details>
+</main>
+
+<aside id="sheet" class="sheet" role="dialog" aria-modal="false" aria-labelledby="sheet-title" hidden></aside>
+
+<script type="application/json" id="data"><!--DATA--></script>
+<!--JS:vendor/three/three.min.js,src/js/lib/geom.js,src/js/lib/parts-meta.js,src/js/lib/recipes.js,src/js/render/parts3d.js,src/js/render/thumbs.js,src/js/pages/database.js-->
+</body>
+</html>

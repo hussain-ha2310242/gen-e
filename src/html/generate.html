@@ -1,0 +1,69 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>GEN-E · Generate</title>
+<meta name="description" content="Watch GEN-E form urban items from a stock of salvaged car and construction parts.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+<!--CSS:base,generate-->
+</head>
+<body class="gen">
+<!--SPRITE-->
+
+<header class="topbar">
+  <a class="brand" href="index.html">GEN-E</a>
+  <nav class="views" aria-label="Pages">
+    <a href="index.html">Home</a>
+    <a href="generate.html" class="on" aria-current="page">Generate</a>
+    <a href="database.html">Database</a>
+  </nav>
+</header>
+
+<div id="stage" aria-hidden="true"></div>
+<div id="ann" aria-hidden="true"></div>
+
+<div id="state" class="state busy" role="status" aria-live="polite"><span class="dot"></span><span id="state-text">Scanning</span></div>
+
+<aside id="info" aria-live="polite" aria-label="What was formed">
+  <div class="ic-head">
+    <div class="ic-badge"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#i-dumbbell"/></svg></div>
+    <div>
+      <div class="ic-kicker" id="kicker">Scanning</div>
+      <h2>Stock scan</h2>
+    </div>
+  </div>
+  <p class="ic-tag">72 salvaged parts are on the yard. Pick a structure to see which of them it uses.</p>
+  <div class="ic-grid">
+    <div class="tile" data-k="parts"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#i-cube"/></svg><b>0</b><span>parts reused</span></div>
+    <div class="tile" data-k="co2"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#i-leaf"/></svg><b>0</b><span>kg CO₂e avoided</span></div>
+    <div class="tile" data-k="cost"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#i-coin"/></svg><b>0</b><span>QAR estimated cost</span></div>
+    <div class="tile" data-k="weeks"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#i-clock"/></svg><b>0</b><span>weeks to build</span></div>
+  </div>
+  <ul class="ic-list">
+    <li><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#i-weight"/></svg><div><small>Bill of materials</small><span data-k="bom"></span></div></li>
+    <li><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#i-wrench"/></svg><div><small>Made by</small><span data-k="maker"></span></div></li>
+    <li><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#i-route"/></svg><div><small>Delivered to</small><span data-k="delivery"></span></div></li>
+  </ul>
+  <p class="ic-foot" data-k="assume"></p>
+</aside>
+
+<div id="panel">
+  <form id="cmdform" autocomplete="off">
+    <div id="box">
+      <svg class="prompt-ico" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-prompt"/></svg>
+      <input id="cmd" type="text" maxlength="120" placeholder="Tell GEN-E what to build…" aria-label="What should GEN-E build?">
+      <button id="go" type="submit">BUILD</button>
+    </div>
+  </form>
+  <div class="skip-row">
+    <span class="skip-label">Or pick</span>
+    <div id="skips" class="skips"></div>
+    <button id="skipTyping" class="skip-typing" type="button" hidden>Skip typing</button>
+  </div>
+</div>
+
+<!--JS:vendor/three/three.min.js,src/js/lib/geom.js,src/js/lib/parts-meta.js,src/js/lib/inventory.js,src/js/lib/recipes.js,src/js/lib/facts.js,src/js/lib/intent.js,src/js/render/parts3d.js,src/js/render/generator.js-->
+</body>
+</html>
