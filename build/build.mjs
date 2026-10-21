@@ -1,16 +1,17 @@
 // Builds the site into dist/. Every page is self-contained: CSS, the icon sprite, the diagram,
 // the data and the scripts are inlined, so each page opens from a file or from one upload.
 //
-//   dist/index.html, dist/generate.html, dist/database.html   full pages
-//   dist/artifact/index.html                                   home page as a fragment, for
-//       publishing (the Artifact host wraps the entry page itself, so it must not carry its own
-//       doctype, html, head or body tags)
-import { readFileSync, writeFileSync, mkdirSync, rmSync, statSync } from 'node:fs';
+//   dist/index.html, dist/generate.html, dist/database.html   the site (what Netlify serves)
+//   dist-artifact/index.html   home page as a fragment, for publishing to the Artifact host.
+//       That host wraps the entry page itself, so the fragment has no doctype, html, head or
+//       body tags. It lives outside dist/ so the site never serves it.
+import { readFileSync, writeFileSync, mkdirSync, rmSync } from 'node:fs';
 import { join, dirname } from 'node:path';
 import { fileURLToPath } from 'node:url';
 
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), '..');
 const DIST = join(ROOT, 'dist');
+const ARTIFACT = join(ROOT, 'dist-artifact');
 const PAGES = ['index', 'generate', 'database'];
 
 const read = p => readFileSync(join(ROOT, p), 'utf8');
@@ -50,19 +51,21 @@ function fragment(html) {
 }
 
 rmSync(DIST, { recursive: true, force: true });
-mkdirSync(join(DIST, 'artifact'), { recursive: true });
+rmSync(ARTIFACT, { recursive: true, force: true });
+mkdirSync(DIST, { recursive: true });
+mkdirSync(ARTIFACT, { recursive: true });
 
 const report = [];
 for (const name of PAGES) {
   const html = page(name);
   writeFileSync(join(DIST, name + '.html'), html);
-  report.push([name + '.html', html.length]);
+  report.push(['dist/' + name + '.html', html.length]);
 }
 const home = fragment(page('index'));
-writeFileSync(join(DIST, 'artifact', 'index.html'), home);
-report.push(['artifact/index.html', home.length]);
+writeFileSync(join(ARTIFACT, 'index.html'), home);
+report.push(['dist-artifact/index.html', home.length]);
 
 for (const [file, bytes] of report) {
-  console.log(file.padEnd(24), (bytes / 1024).toFixed(0).padStart(6) + ' KB');
+  console.log(file.padEnd(28), (bytes / 1024).toFixed(0).padStart(6) + ' KB');
 }
-console.log('built', report.length, 'files into', DIST);
+console.log('site: dist/   artifact fragment: dist-artifact/');

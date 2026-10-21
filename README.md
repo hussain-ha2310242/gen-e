@@ -16,6 +16,18 @@ open dist/index.html
 
 `dist/` holds three pages that open straight from disk: `index.html` (home), `generate.html` and `database.html`. Each one inlines its CSS, icons, data and scripts, so it needs no server. Fonts load from Google Fonts when online and fall back to system fonts otherwise.
 
+## Deploy to Netlify
+
+The site is static. `netlify.toml` already holds the settings: the build runs `npm run check` (tests, then build) and publishes `dist/`.
+
+1. Push this repository to GitHub, GitLab or Bitbucket.
+2. In Netlify, choose **Add new site → Import an existing project**, pick the repository, and deploy. Netlify reads the settings from `netlify.toml`, so the build command and publish folder need no changes.
+3. Open the site URL. The pages are `/`, `/generate.html` and `/database.html`.
+
+To deploy from the command line instead, run `npm run build`, then `npx netlify-cli deploy --dir=dist --prod` and sign in when asked.
+
+A failing test stops the deploy, so a broken build never goes live.
+
 ## Pages
 
 | Page | What it shows |

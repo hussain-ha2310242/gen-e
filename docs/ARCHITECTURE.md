@@ -115,8 +115,8 @@ The schema has been loaded into PostgreSQL 16 with the seed data. The seed has 1
 
 `build/build.mjs` writes:
 
-- `dist/index.html`, `dist/generate.html`, `dist/database.html`: complete pages, each with CSS, sprite, data and scripts inlined
-- `dist/artifact/index.html`: the home page as a fragment, without its own doctype, html, head or body tags, for hosts that wrap the entry page themselves
+- `dist/index.html`, `dist/generate.html`, `dist/database.html`: complete pages, each with CSS, sprite, data and scripts inlined. This folder is the site, and Netlify publishes it.
+- `dist-artifact/index.html`: the home page as a fragment, without its own doctype, html, head or body tags, for the Artifact host, which wraps the entry page itself. It sits outside `dist/` so the site never serves a page without a doctype.
 
 Inlined code has `</script` escaped, and every replacement is a function, so a `$` in inlined code is never read as a pattern. The build fails if a placeholder is left unfilled.
 

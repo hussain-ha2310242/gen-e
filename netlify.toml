@@ -1,0 +1,14 @@
+# Netlify build settings. The site is static: the build inlines everything into dist/.
+# The build runs the tests first, so a failing test stops the deploy.
+[build]
+  command = "npm run check"
+  publish = "dist"
+
+[build.environment]
+  NODE_VERSION = "20"
+
+[[headers]]
+  for = "/*"
+  [headers.values]
+    X-Content-Type-Options = "nosniff"
+    Referrer-Policy = "strict-origin-when-cross-origin"
